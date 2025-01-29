@@ -40,7 +40,7 @@ fastify.register(reportRoutes, {
 });
 
 try {
-  await fastify.listen({ port: process.env.PORT });
+  await fastify.listen({ port: process.env.PORT, host: "0.0.0.0" });
   console.log(`Server listening on ${fastify.server.address().port}`);
 } catch (err) {
   fastify.log.error(err);
