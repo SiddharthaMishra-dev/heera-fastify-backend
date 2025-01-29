@@ -4,7 +4,7 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "start": "node run server.js",
+    "start": "node server.js",
     "dev": "node --watch server.js",
     "db:generate": "pnpm drizzle-kit generate",
     "db:migrate": "node ./db/migrate.js",
