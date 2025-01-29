@@ -11,15 +11,13 @@ const router = async (fastify) => {
     const page = parseInt(request.query.page) || 1;
     const offset = (page - 1) * pageSize;
     try {
-      const result = await db.query.bills.findMany({
-        orderBy: [desc(bills.invNo)],
-        take: pageSize,
-        skip: offset,
-      });
-      const total = await db.query.bills.count();
+      const result = await db.query.bills.findMany({ orderBy: [desc(bills.invNo)] });
+      const total = result.length;
       const totalPages = Math.ceil(total / pageSize);
 
-      reply.send({ error: false, msg: "", data: result, total, totalPages });
+      const data = result;
+
+      reply.send({ error: false, msg: "", data, total, totalPages });
     } catch (error) {
       reply.send({ error: true, msg: error.toString() });
     }
@@ -91,6 +89,7 @@ const router = async (fastify) => {
   // Get bill detail by id
   fastify.get("/:id", async (request, reply) => {
     const { id } = request.params;
+    console.log(id);
     try {
       const [bill, items] = await Promise.all([
         db.query.bills.findFirst({
